@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Selected Schedule</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body class="goschool">
+  <header>
+    <div class="container">
+      <!-- Back/Forward (top-left) -->
+      <div class="nav-arrows">
+        <button onclick="goBack()" aria-label="Go Back">⬅</button>
+        <button onclick="history.forward()" aria-label="Go Forward">➡</button>
+      </div>
+
+      <h1 class="brand"><span class="cap"></span> Selected Schedule</h1>
+      <nav>
+        <a href="index.html">Back</a>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <div class="container">
+      <section>
+        <h2>Your Choice</h2>
+        <div class="card" id="choiceCard">
+          <p><strong>Course:</strong> <span id="cCourse"></span></p>
+          <p><strong>Time:</strong> <span id="cTime"></span></p>
+          <p><strong>Section:</strong> <span id="cSection"></span></p>
+        </div>
+      </section>
+
+      <section class="assigned-schedule">
+        <h2>Preview (Timeline Style)</h2>
+        <table class="timeline">
+          <thead>
+            <tr>
+              <th>Course</th>
+              <th>Time</th>
+              <th>Section</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td data-label="Course" id="tCourse">—</td>
+              <td data-label="Time" id="tTime">—</td>
+              <td data-label="Section" id="tSection">—</td>
+              <td data-label="Status"><span class="badge badge-cleared">Selected</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </div>
+  </main>
+
+  <footer>
+    <p>&copy; 2025 AI-Based Class Schedule Generator | United International University</p>
+  </footer>
+
+  <script>
+    // Back button function: go back in history, or fallback to index.html
+    function goBack() {
+      if (document.referrer) {
+        history.back();
+      } else {
+        window.location.href = "index.html";
+      }
+    }
+
+    // Read query params if you later submit the form with action="selected.html"
+    const params  = new URLSearchParams(window.location.search);
+    const course  = params.get('course')  || '—';
+    const time    = params.get('time')    || '—';
+    const section = params.get('section') || '—';
+
+    document.getElementById('cCourse').textContent  = course;
+    document.getElementById('cTime').textContent    = time;
+    document.getElementById('cSection').textContent = section;
+
+    document.getElementById('tCourse').textContent  = course;
+    document.getElementById('tTime').textContent    = time;
+    document.getElementById('tSection').textContent = section;
+  </script>
+</body>
+</html>

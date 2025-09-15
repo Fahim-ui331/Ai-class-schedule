@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Class Schedule Generator</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="goschool">
+    <header>
+        <div class="container">
+            <!-- Backward & Forward buttons (top-left) -->
+            <div class="nav-arrows">
+                <button onclick="window.location.href='index.html'" aria-label="Go Back">⬅</button>
+                <button onclick="history.forward()" aria-label="Go Forward">➡</button>
+            </div>
+
+            <h1 class="brand"><span class="cap"></span> AI-Based Class Schedule Generator</h1>
+            <nav>
+                <a href="index.html" class="active">Dashboard</a>
+                <!-- Open selected.html in a new tab -->
+                <a href="selected.html" target="_blank">Select Schedule</a>
+                <a href="#">Profile</a>
+                <a href="#">Logout</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container grid">
+            <section class="student-info">
+                <h2>Student Information</h2>
+                <div class="card">
+                    <p><strong>Name:</strong> Fahim Tanjim</p>
+                    <p><strong>Student ID:</strong> 011212345</p>
+                    <p><strong>CGPA:</strong> 3.50 <span class="badge badge-priority">High Priority</span></p>
+                    <p><strong>Payment Status:</strong> <span class="badge badge-cleared">Cleared</span></p>
+                </div>
+            </section>
+
+            <section class="schedule-selection">
+                <h2>Select Preferred Schedule</h2>
+                <!-- You can later add action="selected.html" method="get" if you want to pass values -->
+                <form>
+                    <label for="time">Preferred Time:</label>
+                    <select id="time" name="time">
+                        <option value="Morning">Morning</option>
+                        <option value="Afternoon">Afternoon</option>
+                        <option value="Evening">Evening</option>
+                    </select>
+
+                    <label for="section">Preferred Section:</label>
+                    <select id="section" name="section">
+                        <option value="A1">A1</option>
+                        <option value="B1">B1</option>
+                        <option value="C1">C1</option>
+                    </select>
+
+                    <button type="submit">Save Preferences</button>
+                </form>
+            </section>
+
+            <section class="assigned-schedule">
+                <h2>Your Assigned Schedule</h2>
+                <table class="timeline">
+                    <thead>
+                        <tr>
+                            <th>Course</th>
+                            <th>Time</th>
+                            <th>Section</th>
+                            <th>Faculty</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td data-label="Course">DSA 2</td>
+                            <td data-label="Time">Morning</td>
+                            <td data-label="Section">A1</td>
+                            <td data-label="Faculty">Dr. Fahim Hosen</td>
+                        </tr>
+                        <tr>
+                            <td data-label="Course">Database</td>
+                            <td data-label="Time">Afternoon</td>
+                            <td data-label="Section">B1</td>
+                            <td data-label="Faculty">Md. Mohidur Rahman</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2025 AI-Based Class Schedule Generator | United International University</p>
+    </footer>
+</body>
+</html>

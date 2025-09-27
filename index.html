@@ -31,6 +31,89 @@
             <section class="student-info">
                 <h2>Student Information</h2>
                 <div class="card">
+                    <!--Dynamically populated-->
+                </div>
+                <section class="schedule-selection">
+                    <h2>Select Preferred Schedule</h2>
+                    <form id="Schedule-form">
+                        <label for="course">Course:</label>
+                        <select id="course" name="course">
+                            <option value="CS101">Programming (CS101)</option>
+                            <option value="MATH201">Math (MATH201)</option>
+                            <option value="PHYS301">Physics (PHYS301)</option>
+                            <option value="ENGL101">English (ENGL101)</option>
+                        </select>
+                        <label for="section">Preferred Section</label>
+                        <select id="section" name="section">
+                            <option value="A">A</option>
+                            <option value="B">B</option>
+                            <option value="C">C</option>
+                            <option value="D">D</option>
+                        </Select>
+                        <button type="submit">Save Preferences</button>
+                    </form>
+                </section>
+                <select class="assigned-schedule">
+                    <h2>Assigned Sections Overview</h2>
+                    <table class="assigned-table">
+                        <thead>
+                            <tr>
+                                <th>Student ID</th>
+                                <th>Name</th>
+                                <th>Course</th>
+                                <th>Preferred Sections</th>
+                                <th>Assigned Section</th>
+                                <th>Department</th>
+                                <th>Semester</th>
+                                <th>Course Load</th>
+                            </tr>
+                        </thead>
+                        <tbody id="assigned-table-body">
+                            <!-- Dynamically populated -->
+                        </tbody>
+                    </table>
+                    <h2>Weekly Timetables for Eligible Studnents</h2>
+                    <div id="timetable-container">
+                        <!-- Dynamically populated timetalbes -->
+                    </div>
+                    </main>
+                    <footer>
+                    <p>&copy; 2025 AI-Based Class Schedule Generator | United International University</p>
+                </footer>
+                <Script>
+                    // Sample data (replace with actual CSV Loading in production)
+                    const assignedSection =[
+                        { Student_ID: "S006", Name: "Student_6", GPA: 3.95, Course: "Programming", Preferred_Sections: "C,B", Assigned_Section: "C", Department: "CSE", Semester: "Spring2025", Course_Load: 17 },
+            { Student_ID: "S001", Name: "Student_1", GPA: 3.90, Course: "Math", Preferred_Sections: "A,B", Assigned_Section: "A", Department: "CSE", Semester: "Spring2025", Course_Load: 15 },
+            { Student_ID: "S009", Name: "Student_9", GPA: 3.85, Course: "Physics", Preferred_Sections: "A", Assigned_Section: "A", Department: "CSE", Semester: "Summer2025", Course_Load: 18 },
+            { Student_ID: "S003", Name: "Student_3", GPA: 3.75, Course: "Physics", Preferred_Sections: "A", Assigned_Section: "A", Department: "EEE", Semester: "Summer2025", Course_Load: 18 },
+            { Student_ID: "S008", Name: "Student_8", GPA: 3.50, Course: "Math", Preferred_Sections: "A,B", Assigned_Section: "A", Department: "EEE", Semester: "Fall2025", Course_Load: 16 },
+            { Student_ID: "S005", Name: "Student_5", GPA: 3.40, Course: "Math", Preferred_Sections: "B,A", Assigned_Section: "B", Department: "ENG", Semester: "Fall2025", Course_Load: 14 },
+            { Student_ID: "S010", Name: "Student_10", GPA: 3.20, Course: "English", Preferred_Sections: "C,D", Assigned_Section: "D", Department: "ENG", Semester: "Spring2025", Course_Load: 12 },
+            { Student_ID: "S002", Name: "Student_2", GPA: 2.85, Course: "English", Preferred_Sections: "C,D", Assigned_Section: "Not_Assigned", Department: "BBA", Semester: "Fall2025", Course_Load: 12 },
+            { Student_ID: "S007", Name: "Student_7", GPA: 2.60, Course: "English", Preferred_Sections: "D,C", Assigned_Section: "Not_Assigned", Department: "BBA", Semester: "Summer2025", Course_Load: 13 },
+            { Student_ID: "S004", Name: "Student_4", GPA: 2.80, Course: "Programming", Preferred_Sections: "B,C", Assigned_Section: "Not_Assigned", Department: "CSE", Semester: "Spring2025", Course_Load: 16 }
+                    ];
+
+                    const courses = [
+            { course_id: "CS101", section: "A", day: "Monday", start_time: "09:00", end_time: "10:30", room: "Room 101", instructor: "Dr. Smith" },
+            { course_id: "CS101", section: "B", day: "Wednesday", start_time: "14:00", end_time: "15:30", room: "Room 102", instructor: "Dr. Lee" },
+            { course_id: "CS101", section: "C", day: "Monday", start_time: "09:00", end_time: "10:30", room: "Room 101", instructor: "Dr. Smith" },
+            { course_id: "MATH201", section: "A", day: "Tuesday", start_time: "10:00", end_time: "11:30", room: "Room 201", instructor: "Prof. Kim" },
+            { course_id: "MATH201", section: "B", day: "Tuesday", start_time: "14:00", end_time: "15:30", room: "Room 201", instructor: "Prof. Kim" },
+            { course_id: "PHYS301", section: "A", day: "Thursday", start_time: "09:00", end_time: "10:30", room: "Room 301", instructor: "Dr. Patel" },
+            { course_id: "ENGL101", section: "C", day: "Tuesday", start_time: "13:00", end_time: "14:30", room: "Room 401", instructor: "Dr. Brown" },
+            { course_id: "ENGL101", section: "D", day: "Friday", start_time: "11:00", end_time: "12:30", room: "Room 402", instructor: "Dr. Green" }
+        ];
+        // Map Course to course_id
+        const courseMap ={
+            "Programming": "CS101",
+            "Math": "MATH201",
+            "Physics": "PHYS301",
+            "English": "ENGL101"
+        };
+        //Populate student info (example for first eligible student)
+                </Script>
                     <p><strong>Name:</strong> Fahim Tanjim</p>
                     <p><strong>Student ID:</strong> 011212345</p>
                     <p><strong>CGPA:</strong> 3.50 <span class="badge badge-priority">High Priority</span></p>

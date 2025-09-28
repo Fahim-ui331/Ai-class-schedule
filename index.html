@@ -113,73 +113,89 @@
             "English": "ENGL101"
         };
         //Populate student info (example for first eligible student)
-                </Script>
-                    <p><strong>Name:</strong> Fahim Tanjim</p>
-                    <p><strong>Student ID:</strong> 011212345</p>
-                    <p><strong>CGPA:</strong> 3.50 <span class="badge badge-priority">High Priority</span></p>
-                    <p><strong>Payment Status:</strong> <span class="badge badge-cleared">Cleared</span></p>
-                </div>
-            </section>
+                const studentInfoContainer = document.getElementById('student-info-container');
+                const firstEligible = assignedSection.find(s => s.GPA >= 3.50 && (s.Semester !== 'Fall2025' || true)); 
+                // Assuming payment cleared
+        if (firstEligible) {
+            studentInfoContainer.innerHTML = `
+                <p><strong>Name:</strong> ${firstEligible.Name}</p>
+                <p><strong>Student ID:</strong> ${firstEligible.Student_ID}</p>
+                <p><strong>CGPA:</strong> ${firstEligible.GPA} <span class="badge badge-priority">High Priority</span></p>
+                <p><strong>Payment Status:</strong> <span class="badge badge-cleared">Cleared</span></p>
+            `;
+        }
 
-            <section class="schedule-selection">
-                <h2>Select Preferred Schedule</h2>
-                <!-- You can later add action="selected.html" method="get" if you want to pass values -->
-                <form>
-                    <label for="time">Preferred Time:</label>
-                    <select id="time" name="time">
-                        <option value="Morning">8:30 am - 9:50 am</option>
-                        <option value="Afternoon">11:11 am - 12:30pm</option>
-                        <option value="Evening">1:51 pm - 3:10 pm</option>
-                    </select>
+        // Populate assigned sections table
+        const assignedTableBody = document.getElementById('assigned-table-body');
+        assignedSections.forEach(student => {
+            const isEligible = student.GPA >= 3.50 && (student.Semester !== 'Fall2025' || true); // Adjust with payment data
+            const rowClass = isEligible ? '' : 'ineligible';
+            assignedTableBody.innerHTML += `
+                <tr class="${rowClass}">
+                    <td>${student.Student_ID}</td>
+                    <td>${student.Name}</td>
+                    <td>${student.GPA}</td>
+                    <td>${student.Course}</td>
+                    <td>${student.Preferred_Sections}</td>
+                    <td>${student.Assigned_Section}</td>
+                    <td>${student.Department}</td>
+                    <td>${student.Semester}</td>
+                    <td>${student.Course_Load}</td>
+                </tr>
+            `;
+        });
 
-                    <label for="section">Preferred Section:</label>
-                    <select id="section" name="section">
-                        <option value="A">A</option>
-                        <option value="B">B</option>
-                        <option value="C">D</option>
-                        <option value="D">E</option>
-                        <option value="F">F</option>
-                        <option value="G">G</option>
-                        <option value="H">H</option>
-                        <option value="I">I</option>
-                    </select>
+        // Generate weekly timetables for eligible students
+        const timetableContainer = document.getElementById('timetable-container');
+        const days = ['Monday', 'Tuesday', 'Wednesday', 'Thursday', 'Friday'];
+        const timeSlots = ['08:00', '09:00', '10:00', '11:00', '12:00', '13:00', '14:00', '15:00', '16:00'];
 
-                    <button type="submit">Save Preferences</button>
-                </form>
-            </section>
+        assignedSections
+            .filter(s => s.GPA >= 3.50 && (s.Semester !== 'Fall2025' || true))
+            .forEach(student => {
+                const courseId = courseMap[student.Course];
+                const section = courses.find(c => c.course_id === courseId && c.section === student.Assigned_Section);
+                if (section && student.Assigned_Section !== 'Not_Assigned') {
+                    let tableHTML = `
+                        <h3>Timetable for ${student.Name} (${student.Student_ID})</h3>
+                        <table class="timetable">
+                            <thead>
+                                <tr>
+                                    <th>Time</th>
+                                    ${days.map(day => `<th>${day}</th>`).join('')}
+                                </tr>
+                            </thead>
+                            <tbody>
+                    `;
+                    timeSlots.forEach(time => {
+                        tableHTML += `<tr><td>${time}</td>`;
+                        days.forEach(day => {
+                            if (section.day === day && section.start_time === time) {
+                                tableHTML += `<td>${section.start_time}-${section.end_time}: ${student.Course}-${section.section} (${section.room})</td>`;
+                            } else {
+                                tableHTML += `<td></td>`;
+                            }
+                        });
+                        tableHTML += `</tr>`;
+                    });
+                    tableHTML += `</tbody></table>`;
+                    timetableContainer.innerHTML += tableHTML;
+                } else {
+                    timetableContainer.innerHTML += `
+                        <h3>Timetable for ${student.Name} (${student.Student_ID})</h3>
+                        <p class="ineligible">No schedule generated: ${student.Assigned_Section === 'Not_Assigned' ? 'No section assigned' : 'Course data unavailable'}.</p>
+                    `;
+                }
+            });
 
-            <section class="assigned-schedule">
-                <h2>Your Assigned Schedule</h2>
-                <table class="timeline">
-                    <thead>
-                        <tr>
-                            <th>Course</th>
-                            <th>Time</th>
-                            <th>Section</th>
-                            <th>Faculty</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td data-label="Course">DSA 2</td>
-                            <td data-label="Time">Morning</td>
-                            <td data-label="Section">A1</td>
-                            <td data-label="Faculty">Dr. Fahim Hosen</td>
-                        </tr>
-                        <tr>
-                            <td data-label="Course">Database</td>
-                            <td data-label="Time">Afternoon</td>
-                            <td data-label="Section">B1</td>
-                            <td data-label="Faculty">Md. Mohidur Rahman</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </section>
-        </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2025 AI-Based Class Schedule Generator | United International University</p>
-    </footer>
+        // Handle form submission (save preferences)
+        document.getElementById('schedule-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            const course = document.getElementById('course').value;
+            const section = document.getElementById('section').value;
+            alert(`Preferences saved: Course ${course}, Section ${section}`);
+            // In production, send to backend (e.g., update assigned_sections.csv)
+        });
+    </script>
 </body>
 </html>

@@ -1,0 +1,6 @@
+__pycache__/
+*.pyc
+venv/
+*.log
+*.php  # Exclude PHP files if not needed
+.vscode/

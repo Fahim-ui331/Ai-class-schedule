@@ -1,0 +1,11 @@
+Student_ID,Name,GPA,Course,Preferred_Sections,Assigned_Section,Department,Semester,Course_Load
+S006,Student_6,3.95,Programming,"C,B",C,CSE,Spring2025,17
+S001,Student_1,3.9,Math,"A,B",A,CSE,Spring2025,15
+S009,Student_9,3.85,Physics,A,Not_Assigned,CSE,Summer2025,18
+S003,Student_3,3.75,Physics,A,Not_Assigned,EEE,Summer2025,18
+S005,Student_5,3.4,Math,"B,A",B,ENG,Fall2025,14
+S010,Student_10,3.2,English,"C,D",D,ENG,Spring2025,12
+S002,Student_2,2.85,English,"C,D",Not_Assigned,BBA,Fall2025,12
+S007,Student_7,2.6,English,"D,C",Not_Assigned,BBA,Summer2025,13
+S008,Student_8,3.5,Math,"A,B",Not_Assigned,EEE,Fall2025,16
+S004,Student_4,2.8,Programming,"B,C",Not_Assigned,CSE,Spring2025,16

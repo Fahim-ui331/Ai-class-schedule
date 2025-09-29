@@ -4,7 +4,7 @@ import os
 
 app = Flask(__name__)
 
-courses_df = pd.read_csv('courses.csv')
+courses_df = pd.read_csv('static/courses.csv')
 courses_map = {
     "Programming": "CS101",
     "Math:": "MATH201",

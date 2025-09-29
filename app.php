@@ -15,7 +15,7 @@ if ($db_conn->connect_error) {
 
 // Instantiate the classes
 $student = new Student($db_conn);
-$paymentStatus = new PaymentStatus($db_conn);
+$paymentStatus = new PaymentStatus($db_conn); // Changed from EnrollmentManager to PaymentStatus
 $cgpaStatus = new CGPAStatus($db_conn);
 
 // Example usage:
@@ -24,7 +24,7 @@ $cgpaStatus = new CGPAStatus($db_conn);
 $student->saveStudentData(12345, 'morning', 'A1', 3.8, 'cleared');
 
 // Get all students who have cleared payments
-$cleared_students = $paymentStatus->getClearedPayments();
+$cleared_students = $paymentStatus->getClearedPayments(); // Restored original method
 
 // Get all students who are eligible (priority based on CGPA)
 $priority_students = $cgpaStatus->getPriorityStudents();
@@ -40,4 +40,3 @@ print_r($normal_students);
 echo "</pre>";
 
 ?>
-    

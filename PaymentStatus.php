@@ -1,5 +1,5 @@
 <?php
-class EnrollmentManager {
+class PaymentStatus {
     private $conn;
 
     public function __construct($db_conn) {
@@ -92,6 +92,13 @@ class EnrollmentManager {
         $this->conn->query("INSERT INTO student_courses(student_id, section_id) VALUES($student_id, $section_id)");
         $this->conn->query("UPDATE sections SET enrolled = enrolled + 1 WHERE id = $section_id");
         return "Enrollment successful!";
+    }
+
+    // Add method to match app.php usage
+    public function getClearedPayments() {
+        $query = "SELECT * FROM students WHERE payment_status = 'cleared'";
+        $result = $this->conn->query($query);
+        return $result->fetch_all(MYSQLI_ASSOC);
     }
 }
 ?>
